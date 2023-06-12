@@ -3,7 +3,6 @@ pipeline {
   stages {
     stage('build') {
       steps {
-#        sh 'docker build -t https-server:new .'
         docker.build('https-server:new', '.')
       }
     }
