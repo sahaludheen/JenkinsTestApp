@@ -6,6 +6,10 @@ pipeline {
         sh 'docker build -t https-server:new .'
       }
     }
-
+    stage('deploy') {
+      steps {
+        sh 'kubectl get pods -A'
+      }
+    }
   }
 }
