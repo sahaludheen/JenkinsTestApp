@@ -8,7 +8,7 @@ pipeline {
     }
     stage('deploy') {
       steps {
-        sh 'kubectl get pods -A'
+        sh 'kubectl apply -f install.yaml'
       }
     }
   }
