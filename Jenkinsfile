@@ -42,7 +42,7 @@ pipeline {
         
         //git remote add origin 'https://github.com/sahaludheen/JenkinsTestApp.git'
         // Push the changes to the Git repository
-        sh 'git push --set-upstream origin main'
+        sh 'git push --set-upstream https://github.com/sahaludheen/JenkinsTestApp.git main'
         
         // Configure Git user information
         //gitConfigureUser(email: 'sahalsahalu07@gmail.com', name: 'sahaludheen')
