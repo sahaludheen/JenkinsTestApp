@@ -30,6 +30,9 @@ pipeline {
         
         sh "pwd"
         sh "ls -a"
+        
+        sh 'git config --global user.email "sahalsahalu07@gmail.com"'
+        sh 'git config --global user.name "sahaludheen"'
         // Add the modified file to the Git index
         sh 'git add ./app.yaml'
           
