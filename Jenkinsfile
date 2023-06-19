@@ -1,14 +1,14 @@
 pipeline {
   agent any
   stages {
-    stage('clean') {
-      steps {
-        sh "rm -rf ./*"
-        sh "rm -rf ./.git"
-        sh "pwd"  
-        sh "ls -a"
-      }
-    }
+    //stage('clean') {
+    //  steps {
+    //    sh "rm -rf ./*"
+    //    sh "rm -rf ./.git"
+    //    sh "pwd"  
+    //    sh "ls -a"
+    //  }
+    //}
     stage('Checkout') {
       steps {
         // Checkout source code from Git repository
