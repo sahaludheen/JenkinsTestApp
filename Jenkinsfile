@@ -3,6 +3,7 @@ pipeline {
   stages {
       stage('Checkout') {
       steps {
+        sh "rm -rf ./*"
         // Checkout source code from Git repository
         git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
       }
