@@ -27,17 +27,7 @@ pipeline {
         // Commit and push the modified YAML file back to the Git repository
         // Example: git add path/to/your/yaml/file.yaml && git commit -m "Update image version" && git push
         //git add ./app.yaml && git commit -m "Update image version" && git push
-          // Configure Git user information
-          gitConfigureUser(email: 'sahalsahalu07@gmail.com', name: 'sahaludheen')
-          
-          // Add the modified YAML file
-          gitAdd('./app.yaml')
-          
-          // Commit the changes
-          gitCommit('Modified YAML file')
-          
-          // Push the changes to the repository
-          gitPush()
+
         // Make sure you have the necessary Git credentials configured for the repository
       }
     }
