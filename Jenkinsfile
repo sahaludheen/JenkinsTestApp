@@ -24,7 +24,7 @@ pipeline {
 
           // Modify the YAML as needed
           // Example: Update the image tag to the new version
-          yamlFile = yamlFile.replaceAll('/image: https-server:.+/', "image: https-server:${env.BUILD_NUMBER}")
+          yamlFile = yamlFile.replace('/image: https-server:.+/', "image: https-server:${env.BUILD_NUMBER}")
 
           // Write the modified YAML back to the file
           writeFile(file: './app.yaml', text: yamlFile)
