@@ -14,15 +14,29 @@ pipeline {
     }
     stage('update yaml') {
       steps {
+        sh "docker ps -a"
+        // Configure Git user information
+        //gitConfigureUser(email: 'sahalsahalu07@gmail.com', name: 'sahaludheen')
+          
+        // Add the modified YAML file
+        //gitAdd('./app.yaml')
+          
+        // Commit the changes
+        //gitCommit('Modified YAML file')
+          
+        // Push the changes to the repository
+        //gitPush()
+        
+        
         // Read the YAML file into a variable
-        def yaml = readFile('./app.yaml')
+        //def yaml = readFile('./app.yaml')
 
         // Modify the YAML as needed
         // Example: Update the image tag to the new version
-        yaml = yaml.replace('image: https-server:new', "image: https-server:${env.BUILD_NUMBER}")
+        //yaml = yaml.replace('image: https-server:new', "image: https-server:${env.BUILD_NUMBER}")
 
         // Write the modified YAML back to the file
-        writeFile(file: './app.yaml', text: yaml)
+        //writeFile(file: './app.yaml', text: yaml)
 
         // Commit and push the modified YAML file back to the Git repository
         // Example: git add path/to/your/yaml/file.yaml && git commit -m "Update image version" && git push
