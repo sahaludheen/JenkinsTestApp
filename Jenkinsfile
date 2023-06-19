@@ -4,7 +4,7 @@ pipeline {
     stage('Check Commit Message') {
       steps {
         script{
-          git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
+          //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
           // Check if commit was made by script
           def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
           //def commitMessage = git changelog: true, poll: false, quiet: true, branch: 'main', showEntireCommit: true
@@ -54,6 +54,7 @@ pipeline {
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
           sh "git push -u origin main"
         }
+        git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
       }
     }
     //stage('Deploy') {
