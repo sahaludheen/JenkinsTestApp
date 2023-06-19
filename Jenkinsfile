@@ -12,7 +12,7 @@ pipeline {
     stage('Checkout') {
       steps {
         // Checkout source code from Git repository
-        sh 'mkdir dest'
+        sh 'mkdir -p dest'
         sh 'cd dest'
         git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
         sh 'pwd'
