@@ -30,20 +30,9 @@ pipeline {
           // Write the modified YAML back to the file
         //  writeFile(file: './app.yaml', text: yamlFile)
         //}
-        script {
-          def yamlFile = readFile('./app.yaml')
-          def yamlObject = readYaml text: yamlFile
-
-          // Modify the YAML object as needed
-          // Example: Update the image tag to the new version
-          yamlObject.image = "https-server:${env.BUILD_NUMBER}"
-
-          // Convert the modified YAML object back to YAML string
-          def updatedYaml = writeYaml(yamlObject)
-
-          // Write the modified YAML back to the file
-          writeFile file: './app.yaml', text: updatedYaml
-        }
+        sh 'yaml_file="./app.yaml"'
+        sh 'new_image_name = https-server:${env.BUILD_NUMBER}'
+        sh 'sed -i "s|image:.*|image: $new_image_name|" "$yaml_file"
         
         sh "pwd"  
         sh "cat app.yaml"
