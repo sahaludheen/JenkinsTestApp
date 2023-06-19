@@ -4,10 +4,11 @@ pipeline {
     stage('Check Commit Message') {
       steps {
         script{
+          git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
           // Check if commit was made by script
-          //def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-          def commitMessage = git changelog: true, poll: false, quiet: true, branch: 'main', showEntireCommit: true
-          commitMessage = commitMessage.split('\n')[1].trim() // Extract the commit message from the git changelog
+          def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+          //def commitMessage = git changelog: true, poll: false, quiet: true, branch: 'main', showEntireCommit: true
+          //commitMessage = commitMessage.split('\n')[1].trim() // Extract the commit message from the git changelog
           // Get the last commit author
           def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
           
@@ -26,6 +27,7 @@ pipeline {
     }
     stage('Build') {
       steps {
+        sh "ls -a"
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
       }
     }
