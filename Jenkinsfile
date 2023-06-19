@@ -11,7 +11,7 @@ pipeline {
         }
       }
     }
-    stage('Updates k8s manifest file') {
+    stage('Update k8s manifest file') {
       steps {
         //checkout git directory where k8s manifest file is located
         git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
