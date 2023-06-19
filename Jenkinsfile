@@ -42,11 +42,11 @@ pipeline {
     //    sh 'kubectl apply -f app.yaml'
     //  }
     //}
-    post {
-      always {
-        // Set environment variable to indicate changes made by the pipeline script
-        env.CHANGES_MADE_BY_PIPELINE = 'true'
-      }
+  }
+  post {
+    always {
+      // Set environment variable to indicate changes made by the pipeline script
+      env.CHANGES_MADE_BY_PIPELINE = 'true'
     }
   }
 }
