@@ -1,14 +1,6 @@
 pipeline {
   agent any
   stages {
-    //stage('clean') {
-    //  steps {
-    //    sh "rm -rf ./*"
-    //    sh "rm -rf ./.git"
-    //    sh "pwd"  
-    //    sh "ls -a"
-    //  }
-    //}
     //stage('Checkout') {
     //  steps {
     //    // Checkout source code from Git repository
@@ -28,23 +20,22 @@ pipeline {
       steps {
         git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
         script {
-          def yamlFile = readFile('./my-app.yaml')
+          def yamlFile = readFile('./app.yaml')
 
           // Modify the YAML as needed
           // Example: Update the image tag to the new version
           yamlFile = yamlFile.replaceAll('/image: https-server:.+/', "image: https-server:${env.BUILD_NUMBER}")
 
           // Write the modified YAML back to the file
-          writeFile(file: './my-app.yaml', text: yamlFile)
+          writeFile(file: './app.yaml', text: yamlFile)
         }
         
         sh "pwd"  
-        //sh "touch test.yaml"
-        sh "cat my-app.yaml"
+        sh "cat app.yaml"
         sh "ls -a"
 
         // Add the modified file to the Git index
-        sh 'git add ./my-app.yaml'
+        sh 'git add ./app.yaml'
           
         // Commit the changes
         sh 'git commit -m "Modified YAML file"'
