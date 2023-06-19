@@ -30,6 +30,16 @@ pipeline {
         
         sh "pwd"
         sh "ls -a"
+        // Add the modified file to the Git index
+        sh 'git add ./app.yaml'
+          
+        // Commit the changes
+        sh 'git commit -m "Modified YAML file"'
+        
+        // Push the changes to the Git repository
+        sh 'git push origin main'
+        
+        
         // Configure Git user information
         //gitConfigureUser(email: 'sahalsahalu07@gmail.com', name: 'sahaludheen')
           
