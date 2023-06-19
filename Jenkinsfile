@@ -3,13 +3,15 @@ pipeline {
   stages {
     stage('Check Commit Message') {
       steps {
-        // Check if commit was made by script
-        def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-        def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
+        script{
+          // Check if commit was made by script
+          def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+          def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
 
-        if (isScriptCommit) {
-          echo 'Commit was made by the script, skipping pipeline execution.'
-          return // Exit the pipeline early
+          if (isScriptCommit) {
+            echo 'Commit was made by the script, skipping pipeline execution.'
+            return // Exit the pipeline early
+          }
         }
       }
     }
