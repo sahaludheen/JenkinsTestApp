@@ -1,10 +1,5 @@
 pipeline {
   agent any
-  triggers {
-    pollSCM('* * * * *') {
-            ignorePostCommitHooks(true)
-        }
-  }
   stages {
     stage('Build') {
       steps {
@@ -32,7 +27,6 @@ pipeline {
         sh 'git commit -m "Modified YAML file"'
         
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
-          //sh "git push -u origin main"
           sh "git push -u origin main"
         }
       }
