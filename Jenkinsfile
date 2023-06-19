@@ -1,5 +1,10 @@
 pipeline {
   agent any
+  triggers {
+    pollSCM('*/1 * * * *') {
+      excludedUsers('https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git')
+    }
+  }
   stages {
     stage('Build') {
       steps {
@@ -38,10 +43,5 @@ pipeline {
     //    sh 'kubectl apply -f app.yaml'
     //  }
     //}
-  }
-  triggers {
-    pollSCM('* * * * *') {
-      excludedRegions('https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git')
-    }
   }
 }
