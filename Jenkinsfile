@@ -32,7 +32,7 @@ pipeline {
         //}
         sh 'yaml_file="./app.yaml"'
         sh 'new_image_name = https-server:${env.BUILD_NUMBER}'
-        sh 'sed -i "s|image:.*|image: $new_image_name|" "$yaml_file"
+        sh 'sed -i "s|image:.*|image: $new_image_name|" "$yaml_file"'
         
         sh "pwd"  
         sh "cat app.yaml"
