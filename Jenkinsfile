@@ -31,7 +31,7 @@ pipeline {
         }
       }
     }
-    //stage('deploy') {
+    //stage('Deploy') {
     //  steps {
     //    //sh 'kubectl delete -f app.yaml'
     //    sh 'kubectl apply -f app.yaml'
