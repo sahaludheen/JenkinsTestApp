@@ -43,7 +43,7 @@ pipeline {
 
           // Write the modified YAML back to the file
           writeFile file: './app.yaml', text: updatedYaml
-
+        }
         
         sh "pwd"  
         sh "cat app.yaml"
