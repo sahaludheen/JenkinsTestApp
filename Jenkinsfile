@@ -31,7 +31,7 @@ pipeline {
         sh "ls -a"
 
         // Add the modified file to the Git index
-        sh 'git add ./app1.yaml'
+        sh 'git add ./app.yaml'
           
         // Commit the changes
         sh 'git commit -m "Modified YAML file"'
