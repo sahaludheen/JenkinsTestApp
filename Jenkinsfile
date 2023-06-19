@@ -35,6 +35,7 @@ pipeline {
       steps {
         //checkout git directory where k8s manifest file is located
         //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
+        git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
 
         //script to update image tag
         script {
@@ -52,7 +53,7 @@ pipeline {
         sh 'git commit -m "[Jenkins]Modified YAML file"'
         
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
-          sh "git push -u https://github.com/sahaludheen/JenkinsTestApp.git main"
+          sh "git push -u origin main"
         }
         //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
       }
