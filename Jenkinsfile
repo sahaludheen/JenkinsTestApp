@@ -52,7 +52,7 @@ pipeline {
         sh 'git commit -m "[Jenkins]Modified YAML file"'
         
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
-          sh "git push -u origin main"
+          sh "git push -u https://github.com/sahaludheen/JenkinsTestApp.git main"
         }
         //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
       }
