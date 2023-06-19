@@ -19,17 +19,31 @@ pipeline {
     stage('update yaml') {
       steps {
         git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
-        script {
-          def yamlFile = readFile('./app.yaml')
+        //script {
+        //  def yamlFile = readFile('./app.yaml')
 
           // Modify the YAML as needed
           // Example: Update the image tag to the new version
           //yamlFile = yamlFile.replace('image: https-server:.+', "image: https-server:${env.BUILD_NUMBER}")
-          yamlFile = yamlFile.replaceAll(/(image: https-server:).+$/, "image: https-server:${env.BUILD_NUMBER}")
+        //  yamlFile = yamlFile.replaceAll(/(image: https-server:).+$/, "image: https-server:${env.BUILD_NUMBER}")
 
           // Write the modified YAML back to the file
-          writeFile(file: './app.yaml', text: yamlFile)
-        }
+        //  writeFile(file: './app.yaml', text: yamlFile)
+        //}
+        script {
+          def yamlFile = readFile('./app.yaml')
+          def yamlObject = readYaml text: yamlFile
+
+          // Modify the YAML object as needed
+          // Example: Update the image tag to the new version
+          yamlObject.image = "https-server:${env.BUILD_NUMBER}"
+
+          // Convert the modified YAML object back to YAML string
+          def updatedYaml = writeYaml(yamlObject)
+
+          // Write the modified YAML back to the file
+          writeFile file: './app.yaml', text: updatedYaml
+
         
         sh "pwd"  
         sh "cat app.yaml"
