@@ -3,10 +3,15 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh "docker build -t https-server:${env.BUILD_NUMBER} ."
+        if (env.CHANGES_MADE_BY_PIPELINE != 'true') {
+          sh "docker build -t https-server:${env.BUILD_NUMBER} ."
+        }
+        else{
+          echo "skip"
+        }
       }
     }
-    stage('Update k8s manifest file') {
+    stage('Updates k8s manifest file') {
       steps {
         //checkout git directory where k8s manifest file is located
         git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
@@ -37,5 +42,11 @@ pipeline {
     //    sh 'kubectl apply -f app.yaml'
     //  }
     //}
+    post {
+      always {
+        // Set environment variable to indicate changes made by the pipeline script
+        env.CHANGES_MADE_BY_PIPELINE = 'true'
+      }
+    }
   }
 }
