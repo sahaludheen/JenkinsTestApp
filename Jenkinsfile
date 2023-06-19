@@ -5,7 +5,9 @@ pipeline {
       steps {
         script{
           // Check if commit was made by script
-          def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+          //def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+          def commitMessage = git changelog: true, poll: false, quiet: true, branch: 'main', showEntireCommit: true
+          commitMessage = commitMessage.split('\n')[1].trim() // Extract the commit message from the git changelog
           // Get the last commit author
           def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
           
