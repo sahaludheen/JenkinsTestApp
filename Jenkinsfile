@@ -42,7 +42,8 @@ pipeline {
         
         //git remote add origin 'https://github.com/sahaludheen/JenkinsTestApp.git'
         // Push the changes to the Git repository
-        sh 'git push origin main'
+        //sh 'git push origin main'
+        sh 'git push'
         
         
         // Configure Git user information
