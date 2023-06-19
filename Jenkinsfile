@@ -31,7 +31,7 @@ pipeline {
         sh "pwd"  
         sh "touch test.yaml"
         sh "ls -a"
-        git remote add origin https://github.com/sahaludheen/JenkinsTestApp.git
+
         //sh 'git config --global user.email "sahalsahalu07@gmail.com"'
         //sh 'git config --global user.name "sahaludheen"'
         // Add the modified file to the Git index
@@ -40,6 +40,7 @@ pipeline {
         // Commit the changes
         sh 'git commit -m "Modified YAML file"'
         
+        git remote add origin 'https://github.com/sahaludheen/JenkinsTestApp.git'
         // Push the changes to the Git repository
         sh 'git push origin main'
         
