@@ -6,6 +6,12 @@ pipeline {
         script{
           // Check if commit was made by script
           def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+          // Get the last commit author
+          def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
+          
+          // Print the commit author
+          echo "Last Commit Author: ${commitAuthor}"
+          
           echo "Last Commit Message: ${commitMessage}"
           def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
 
