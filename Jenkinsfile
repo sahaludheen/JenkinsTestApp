@@ -28,13 +28,13 @@ pipeline {
         // Example: git add path/to/your/yaml/file.yaml && git commit -m "Update image version" && git push
         //git add ./app.yaml && git commit -m "Update image version" && git push
         
-        sh "pwd"
+        sh "pwd"  
+        sh "touch test.yaml"
         sh "ls -a"
-        
         sh 'git config --global user.email "sahalsahalu07@gmail.com"'
         sh 'git config --global user.name "sahaludheen"'
         // Add the modified file to the Git index
-        sh 'git add ./app.yaml'
+        sh 'git add ./test.yaml'
           
         // Commit the changes
         sh 'git commit -m "Modified YAML file"'
