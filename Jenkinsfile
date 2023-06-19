@@ -6,6 +6,7 @@ pipeline {
         script{
           // Check if commit was made by script
           def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+          echo "Last Commit Message: ${commitMessage}"
           def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
 
           if (isScriptCommit) {
