@@ -1,9 +1,13 @@
 pipeline {
   agent any
   stages {
-      stage('Checkout') {
+    stage('clean') {
       steps {
         sh "rm -rf ./*"
+      }
+    }
+    stage('Checkout') {
+      steps {
         // Checkout source code from Git repository
         git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
       }
