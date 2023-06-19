@@ -39,4 +39,9 @@ pipeline {
     //  }
     //}
   }
+  triggers {
+    pollSCM('*/1 * * * *') {
+      excludedRegions('https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git')
+    }
+  }
 }
