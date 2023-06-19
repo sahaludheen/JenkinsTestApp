@@ -4,6 +4,8 @@ pipeline {
     stage('clean') {
       steps {
         sh "rm -rf ./*"
+        sh "pwd"  
+        sh "ls -a"
       }
     }
     stage('Checkout') {
