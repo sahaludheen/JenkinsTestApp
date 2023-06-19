@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: https-server
-          image: https-server:new
+          image: https-server:${env.BUILD_NUMBER}
           ports:
             - containerPort: 443
 ---
