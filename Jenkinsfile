@@ -22,12 +22,12 @@ pipeline {
           yamlFile = yamlFile.replace('/image: https-server:.+/', "image: https-server:${env.BUILD_NUMBER}")
 
           // Write the modified YAML back to the file
-          writeFile(file: './app1.yaml', text: yamlFile)
+          writeFile(file: './app.yaml', text: yamlFile)
         }
         
         sh "pwd"  
-        sh "touch test.yaml"
-        sh "cat app1.yaml"
+        //sh "touch test.yaml"
+        sh "cat app.yaml"
         sh "ls -a"
 
         // Add the modified file to the Git index
@@ -37,7 +37,7 @@ pipeline {
         sh 'git commit -m "Modified YAML file"'
         
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
-          //sh "git push -u origin main"
+          sh "git push -u origin main"
         }
       }
     }
