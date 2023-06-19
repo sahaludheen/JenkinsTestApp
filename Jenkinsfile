@@ -39,10 +39,4 @@ pipeline {
       }
     }
   }
-  triggers {
-    pollSCM(
-      ignorePostCommitHooks: true,
-      cron: '* * * * *'
-    )
-  }
 }
