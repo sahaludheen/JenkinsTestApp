@@ -32,11 +32,11 @@ pipeline {
         }
       }
     }
-    stage('deploy') {
-      steps {
-        //sh 'kubectl delete -f app.yaml'
-        sh 'kubectl apply -f app.yaml'
-      }
-    }
+    //stage('deploy') {
+    //  steps {
+    //    //sh 'kubectl delete -f app.yaml'
+    //    sh 'kubectl apply -f app.yaml'
+    //  }
+    //}
   }
 }
