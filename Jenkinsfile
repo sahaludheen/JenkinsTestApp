@@ -32,8 +32,8 @@ pipeline {
         sh "touch test.yaml"
         sh "ls -a"
 
-        sh 'git config --global user.email "sahalsahalu07@gmail.com"'
-        sh 'git config --global user.name "sahaludheen"'
+        //sh 'git config --global user.email "sahalsahalu07@gmail.com"'
+        //sh 'git config --global user.name "sahaludheen"'
         // Add the modified file to the Git index
         sh 'git add ./test.yaml'
           
