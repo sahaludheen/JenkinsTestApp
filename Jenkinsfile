@@ -4,6 +4,7 @@ pipeline {
     stage('clean') {
       steps {
         sh "rm -rf ./*"
+        sh "rm -rf ./.git"
         sh "pwd"  
         sh "ls -a"
       }
