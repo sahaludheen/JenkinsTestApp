@@ -1,45 +1,24 @@
 pipeline {
   agent any
   stages {
-    //stage('Checkout') {
-    //  steps {
-    //    // Checkout source code from Git repository
-    //    sh 'mkdir -p dest'
-    //    sh 'cd dest'
-    //    git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
-    //    sh 'pwd'
-    //    sh 'ls -a'
-    //  }
-    //}
-    stage('build') {
+    stage('Build') {
       steps {
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
       }
     }
-    stage('update yaml') {
+    stage('Update k8s manifest file') {
       steps {
+        //checkout git directory where k8s manifest file is located
         git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
-        //script {
-        //  def yamlFile = readFile('./app.yaml')
 
-          // Modify the YAML as needed
-          // Example: Update the image tag to the new version
-          //yamlFile = yamlFile.replace('image: https-server:.+', "image: https-server:${env.BUILD_NUMBER}")
-        //  yamlFile = yamlFile.replaceAll(/(image: https-server:).+$/, "image: https-server:${env.BUILD_NUMBER}")
-
-          // Write the modified YAML back to the file
-        //  writeFile(file: './app.yaml', text: yamlFile)
-        //}
+        //script to update image tag
         script {
           def yamlFile = './app.yaml'
-          def newImageName = "https-server:${env.BUILD_NUMBER}"
-                    
+          def newImageName = "https-server:${env.BUILD_NUMBER}"         
           sh "sed -i 's|image:.*|image: ${newImageName}|' ${yamlFile}"
         }
         
-        sh "pwd"  
         sh "cat app.yaml"
-        sh "ls -a"
 
         // Add the modified file to the Git index
         sh 'git add ./app.yaml'
@@ -49,7 +28,7 @@ pipeline {
         
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
           //sh "git push -u origin main"
-          sh "git push -u https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git main"
+          sh "git push -u origin main"
         }
       }
     }
