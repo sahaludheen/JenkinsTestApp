@@ -3,9 +3,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh '''
-        docker build -t https-server:${env.BUILD_NUMBER} .
-        '''
+        sh "docker build -t https-server:${env.BUILD_NUMBER} ."
       }
     }
     stage('deploy') {
