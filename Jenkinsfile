@@ -1,14 +1,21 @@
 pipeline {
   agent any
   stages {
+    stage('Check Commit Message') {
+      steps {
+        // Check if commit was made by script
+        def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+        def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
+
+        if (isScriptCommit) {
+          echo 'Commit was made by the script, skipping pipeline execution.'
+          return // Exit the pipeline early
+        }
+      }
+    }
     stage('Build') {
       steps {
-        if (env.CHANGES_MADE_BY_PIPELINE != 'true') {
-          sh "docker build -t https-server:${env.BUILD_NUMBER} ."
-        }
-        else{
-          echo "skip"
-        }
+        sh "docker build -t https-server:${env.BUILD_NUMBER} ."
       }
     }
     stage('Update k8s manifest file') {
