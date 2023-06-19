@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: https-server
+  namespace: test 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: https-server
+      namespace: test
+  template:
+    metadata:
+      labels:
+        app: https-server
+        namespace: test
+    spec:
+      containers:
+        - name: https-server
+          image: https-server:128
+          ports:
+            - containerPort: 443
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: https-server-service
+  namespace: test
+spec:
+  type: NodePort
+  selector:
+    app: https-server
+    namespace: test
+  ports:
+    - protocol: TCP
+      port: 443
+      targetPort: 443
+      nodePort: 32000
