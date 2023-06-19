@@ -32,17 +32,19 @@ pipeline {
         sh "touch test.yaml"
         sh "ls -a"
 
-        sh 'git config --global user.email "sahalsahalu07@gmail.com"'
-        sh 'git config --global user.name "sahaludheen"'
+        //sh 'git config --global user.email "sahalsahalu07@gmail.com"'
+        //sh 'git config --global user.name "sahaludheen"'
         // Add the modified file to the Git index
         sh 'git add ./test.yaml'
           
         // Commit the changes
         sh 'git commit -m "Modified YAML file"'
         
+        sh 'git remote add origin https://github.com/sahaludheen/JenkinsTestApp.git'
         //git remote add origin 'https://github.com/sahaludheen/JenkinsTestApp.git'
         // Push the changes to the Git repository
-        sh 'git push --set-upstream https://github.com/sahaludheen/JenkinsTestApp.git main'
+        //sh 'git push --set-upstream https://github.com/sahaludheen/JenkinsTestApp.git main'
+        sh 'git push origin main'
         
         // Configure Git user information
         //gitConfigureUser(email: 'sahalsahalu07@gmail.com', name: 'sahaludheen')
