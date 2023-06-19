@@ -9,12 +9,16 @@ pipeline {
     //    sh "ls -a"
     //  }
     //}
-    //stage('Checkout') {
-    //  steps {
-    //    // Checkout source code from Git repository
-    //    git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
-    //  }
-    //}
+    stage('Checkout') {
+      steps {
+        // Checkout source code from Git repository
+        sh 'mkdir dest'
+        sh 'cd dest'
+        git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
+        sh 'pwd'
+        sh 'ls -a'
+      }
+    }
     stage('build') {
       steps {
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
