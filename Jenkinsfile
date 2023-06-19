@@ -40,7 +40,7 @@ pipeline {
     //}
   }
   triggers {
-    pollSCM('*/1 * * * *') {
+    pollSCM('* * * * *') {
       excludedRegions('https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git')
     }
   }
