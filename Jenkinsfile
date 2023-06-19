@@ -40,7 +40,7 @@ pipeline {
         // Commit the changes
         sh 'git commit -m "Modified YAML file"'
         
-        sh 'git remote add origin https://github.com/sahaludheen/JenkinsTestApp.git'
+        //sh 'git remote add origin https://github.com/sahaludheen/JenkinsTestApp.git'
         //git remote add origin 'https://github.com/sahaludheen/JenkinsTestApp.git'
         // Push the changes to the Git repository
         //sh 'git push --set-upstream https://github.com/sahaludheen/JenkinsTestApp.git main'
