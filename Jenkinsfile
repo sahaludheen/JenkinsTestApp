@@ -9,41 +9,42 @@ pipeline {
     //    sh "ls -a"
     //  }
     //}
-    stage('Checkout') {
-      steps {
-        // Checkout source code from Git repository
-        sh 'mkdir -p dest'
-        sh 'cd dest'
-        git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
-        sh 'pwd'
-        sh 'ls -a'
-      }
-    }
+    //stage('Checkout') {
+    //  steps {
+    //    // Checkout source code from Git repository
+    //    sh 'mkdir -p dest'
+    //    sh 'cd dest'
+    //    git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
+    //    sh 'pwd'
+    //    sh 'ls -a'
+    //  }
+    //}
     stage('build') {
       steps {
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
       }
     }
     stage('update yaml') {
-      steps {        
+      steps {
+        git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
         script {
-          def yamlFile = readFile('./app.yaml')
+          def yamlFile = readFile('./my-app.yaml')
 
           // Modify the YAML as needed
           // Example: Update the image tag to the new version
           yamlFile = yamlFile.replaceAll('/image: https-server:.+/', "image: https-server:${env.BUILD_NUMBER}")
 
           // Write the modified YAML back to the file
-          writeFile(file: './app.yaml', text: yamlFile)
+          writeFile(file: './my-app.yaml', text: yamlFile)
         }
         
         sh "pwd"  
         //sh "touch test.yaml"
-        sh "cat app.yaml"
+        sh "cat my-app.yaml"
         sh "ls -a"
 
         // Add the modified file to the Git index
-        sh 'git add ./app.yaml'
+        sh 'git add ./my-app.yaml'
           
         // Commit the changes
         sh 'git commit -m "Modified YAML file"'
