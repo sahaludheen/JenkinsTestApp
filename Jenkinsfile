@@ -14,15 +14,20 @@ pipeline {
     }
     stage('update yaml') {
       steps {        
-        // Read the YAML file into a variable
-        def data = readFile('./app.yaml')
-
-        // Modify the YAML as needed
-        // Example: Update the image tag to the new version
-        yaml = data.replace('image: https-server:new', "image: https-server:${env.BUILD_NUMBER}")
-
-        // Write the modified YAML back to the file
-        writeFile(file: './app.yaml', text: yaml)
+        // Read the YAML file
+        def yamlFile = readFile './app.yaml'
+                    
+        // Parse the YAML content
+        def yamlContent = readYaml text: yamlFile
+                    
+        // Update the image name
+        yamlContent.spec.template.spec.containers[0].image = 'your-new-image-name:tag'
+                    
+        // Convert the YAML content back to a string
+        def updatedYaml = writeYaml text: yamlContent
+                    
+        // Write the updated YAML file
+        writeFile file: './app.yaml', text: updatedYaml
         
         sh "pwd"  
         sh "touch test.yaml"
