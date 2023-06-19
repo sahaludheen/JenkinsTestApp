@@ -1,7 +1,7 @@
 pipeline {
   agent any
   triggers {
-    pollSCM('*/1 * * * *') {
+    pollSCM('* * * * *') {
       excludedUsers('https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git')
     }
   }
