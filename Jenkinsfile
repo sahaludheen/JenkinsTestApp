@@ -15,11 +15,11 @@ pipeline {
     stage('update yaml') {
       steps {        
         // Read the YAML file into a variable
-        def yaml = readFile('./app.yaml')
+        def data = readFile('./app.yaml')
 
         // Modify the YAML as needed
         // Example: Update the image tag to the new version
-        yaml = yaml.replace('image: https-server:new', "image: https-server:${env.BUILD_NUMBER}")
+        yaml = data.replace('image: https-server:new', "image: https-server:${env.BUILD_NUMBER}")
 
         // Write the modified YAML back to the file
         writeFile(file: './app.yaml', text: yaml)
