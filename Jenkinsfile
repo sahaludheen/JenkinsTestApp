@@ -4,7 +4,7 @@ pipeline {
       stage('Checkout') {
       steps {
         // Checkout source code from Git repository
-        git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
+        git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
       }
     }
     stage('build') {
@@ -19,7 +19,7 @@ pipeline {
 
           // Modify the YAML as needed
           // Example: Update the image tag to the new version
-          yamlFile = yamlFile.replace('image: https-server:new', "image: https-server:${env.BUILD_NUMBER}")
+          yamlFile = yamlFile.replace('/image: https-server:.+/', "image: https-server:${env.BUILD_NUMBER}")
 
           // Write the modified YAML back to the file
           writeFile(file: './app1.yaml', text: yamlFile)
