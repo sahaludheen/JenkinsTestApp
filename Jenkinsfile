@@ -4,7 +4,7 @@ pipeline {
     isScriptCommit = "false"
   }
   stages {
-    //def isScriptCommit = false
+    def isScriptCommit = false
     stage('Check Commit Message') {
       steps {
         script{
@@ -18,7 +18,10 @@ pipeline {
           echo "Last Commit Author: ${commitAuthor}"
 
           echo "Last Commit Message: ${commitMessage}"
-          env.isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
+          isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
+          if(isScriptCommit){
+            env.isScriptCommit = "true"
+          }
 
           if (${env.isScriptCommit}=='true') {
             echo 'Commit was made by the script, skipping pipeline execution.'
