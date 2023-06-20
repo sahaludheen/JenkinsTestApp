@@ -4,37 +4,30 @@ pipeline {
     isScriptCommit = false
   }
   stages {
-    stage('Check Commit Message') {
-      steps {
-        script{
-          // Get the last commit author
-          def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
-          echo "Last Commit Author: ${commitAuthor}"
+    //stage('Check Commit Message') {
+    //  steps {
+    //    script{
+    //      // Get the last commit author
+    //      def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
+    //      echo "Last Commit Author: ${commitAuthor}"
 
           // Check if commit was made by script
-          def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-          echo "Last Commit Message: ${commitMessage}"
+    //      def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+    //      echo "Last Commit Message: ${commitMessage}"
 
-          env.isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
-          echo "is script commit: ${env.isScriptCommit}"
+    //      isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
+    //      echo "is script commit: ${env.isScriptCommit}"
 
-          if (env.isScriptCommit == true) {
-            echo 'Commit was made by the script, skipping pipeline execution.'
-            error("script commit")
-            //return // Exit the pipeline early
-          }
-        }
-      }
-    }
+    //      if (isScriptCommit) {
+    //        echo 'Commit was made by the script, skipping pipeline execution.'
+    //        error("script commit")
+    //      }
+    //    }
+    //  }
+    //}
     stage('Build') {
       steps {
-        script{
-          if (env.isScriptCommit == true) {
-            echo 'Commit was made by the script, skipping Build step.'
-            return
-          }
-        }
-        sh "ls -a"
+        //sh "ls -a"
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
       }
     }
