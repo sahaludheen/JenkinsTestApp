@@ -4,6 +4,11 @@ pipeline {
     isScriptCommit = false
   }
   stages {
+    stage('Check for Skip') {
+      steps {
+        scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
+      }
+    }
     //stage('Check Commit Message') {
     //  steps {
     //    script{
