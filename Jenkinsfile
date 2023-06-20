@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Check for Skip') {
       steps {
-        scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
+        scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
       }
     }
     //stage('Check Commit Message') {
