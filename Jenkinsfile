@@ -22,10 +22,10 @@ pipeline {
             env.isScriptCommit = "true"
           }
 
-          if (${env.isScriptCommit}=='true') {
-            echo 'Commit was made by the script, skipping pipeline execution.'
-            return // Exit the pipeline early
-          }
+          //if (${env.isScriptCommit}=='true') {
+          //  echo 'Commit was made by the script, skipping pipeline execution.'
+          //  return // Exit the pipeline early
+          //}
         }
       }
     }
