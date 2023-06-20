@@ -32,7 +32,6 @@ pipeline {
     //}
     stage('Build') {
       steps {
-        //sh "ls -a"
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
       }
     }
