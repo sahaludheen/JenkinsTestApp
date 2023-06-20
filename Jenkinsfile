@@ -1,30 +1,27 @@
 pipeline {
   agent any
   environment {
-    isScriptCommit = "false"
+    isScriptCommit = false
   }
   stages {
     stage('Check Commit Message') {
       steps {
         script{
-          //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
-          // Check if commit was made by script
-          def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
           // Get the last commit author
           def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
-
-          // Print the commit author
           echo "Last Commit Author: ${commitAuthor}"
 
+          // Check if commit was made by script
+          def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
           echo "Last Commit Message: ${commitMessage}"
           def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
           if(isScriptCommit){
-            env.isScriptCommit = "true"
+            env.isScriptCommit = true
           }
 
-          if (env.isScriptCommit == "true") {
+          if (env.isScriptCommit) {
             echo 'Commit was made by the script, skipping pipeline execution.'
-            return // Exit the pipeline early
+            //return // Exit the pipeline early
           }
         }
       }
@@ -40,7 +37,6 @@ pipeline {
     stage('Update k8s manifest file') {
       steps {
         //checkout git directory where k8s manifest file is located
-        //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp-ArgoCD.git'
         git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
 
         //script to update image tag
