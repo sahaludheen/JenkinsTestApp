@@ -7,12 +7,13 @@ pipeline {
     stage('Check for Skip') {
       steps {
         scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
-        stages {
+      }
+      stages {
            stage('Build') {
-              steps {
+             steps {
                 sh "docker build -t https-server:${env.BUILD_NUMBER} ."
               }
-            }
+           }
             stage('Update k8s manifest file') {
               steps {
                 //checkout git directory where k8s manifest file is located
@@ -39,8 +40,8 @@ pipeline {
               }// steps
             }// stage('Update k8s manifest file')
           }//stages
-      }
-    }
+    }// stages
+    
     //stage('Check Commit Message') {
     //  steps {
     //    script{
