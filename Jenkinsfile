@@ -10,6 +10,8 @@ pipeline {
         echo "Skip : ${skip}"
       }
     }
+  }
+  stages{
     stage('Build') {
       steps {
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
