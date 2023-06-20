@@ -10,8 +10,6 @@ pipeline {
         //echo "Skip : ${skip}"
       }
     }
-  }
-  stages{
     stage('Build') {
       steps {
         scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
