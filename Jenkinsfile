@@ -26,6 +26,7 @@ pipeline {
       }
     }
     stage('Build') {
+      sh "ls -a"
       steps {
         if (env.isScriptCommit == false) {
           sh "ls -a"
@@ -33,7 +34,6 @@ pipeline {
         }
         else{
           echo 'skipping Build step'
-          sh "ls -a"
         }
       }
     }
