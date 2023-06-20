@@ -8,23 +8,21 @@ pipeline {
       // Get the last commit author
       def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
           
-     // Print the commit author
-     echo "Last Commit Author: ${commitAuthor}"
+      // Print the commit author
+      echo "Last Commit Author: ${commitAuthor}"
           
-     echo "Last Commit Message: ${commitMessage}"
-     def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
+      echo "Last Commit Message: ${commitMessage}"
+      def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
 
-     if (isScriptCommit) {
-       echo 'Commit was made by the script, skipping pipeline execution.'
-       return // Exit the pipeline early
-     }
-    }
-    stage('Check Commit Message') {
-      steps {
-
-        }
+      if (isScriptCommit) {
+        echo 'Commit was made by the script, skipping pipeline execution.'
+        return // Exit the pipeline early
       }
     }
+    //stage('Check Commit Message') {
+    //  steps {
+    //  }
+    //}
     stage('Build') {
       steps {
         sh "ls -a"
