@@ -1,6 +1,7 @@
 pipeline {
   agent any
   stages {
+    def isScriptCommit = false
     stage('Check Commit Message') {
       steps {
         script{
