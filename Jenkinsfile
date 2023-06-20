@@ -31,6 +31,9 @@ pipeline {
           sh "ls -a"
           sh "docker build -t https-server:${env.BUILD_NUMBER} ."
         }
+        else{
+          echo 'skipping Build step'
+        }
       }
     }
     stage('Update k8s manifest file') {
