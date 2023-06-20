@@ -6,8 +6,8 @@ pipeline {
   stages {
     stage('Check for Skip') {
       steps {
-        def skip = scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
-        echo "Skip : ${skip}"
+        scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
+        //echo "Skip : ${skip}"
       }
     }
   }
