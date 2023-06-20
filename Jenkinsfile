@@ -29,11 +29,10 @@ pipeline {
       steps {
         script{
           if (env.isScriptCommit == true) {
-            echo 'Commit was made by the script, skipping build step.'
-            return // Exit the pipeline early
+            echo 'Commit was made by the script, skipping Build step.'
+            return
           }
         }
-        echo "is script commit: ${env.isScriptCommit}"
         sh "ls -a"
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
       }
