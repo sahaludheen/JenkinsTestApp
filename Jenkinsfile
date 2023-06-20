@@ -33,6 +33,7 @@ pipeline {
         }
         else{
           echo 'skipping Build step'
+          sh "ls -a"
         }
       }
     }
