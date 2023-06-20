@@ -14,11 +14,13 @@ pipeline {
   stages{
     stage('Build') {
       steps {
+        scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
        }
     }
     stage('Update k8s manifest file') {
       steps {
+        scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
         //checkout git directory where k8s manifest file is located
         git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
 
