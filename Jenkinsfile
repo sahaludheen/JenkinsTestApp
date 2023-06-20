@@ -32,10 +32,10 @@ pipeline {
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
           sh "git push -u origin main"
         }
-      }// steps
-    }// stage('Update k8s manifest file')
+      }
+    }
     
-  }// stages
+  }
     
     //stage('Check Commit Message') {
     //  steps {
