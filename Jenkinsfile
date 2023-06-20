@@ -29,13 +29,13 @@ pipeline {
       steps {
         echo "is script commit: ${env.isScriptCommit}"
         sh "ls -a"
-        //if (env.isScriptCommit == false) {
+        if (isScriptCommit == false) {
           sh "ls -a"
           sh "docker build -t https-server:${env.BUILD_NUMBER} ."
-        //}
-        //else{
-        //  echo 'skipping Build step'
-        //}
+        }
+        else{
+          echo 'skipping Build step'
+        }
       }
     }
     stage('Update k8s manifest file') {
