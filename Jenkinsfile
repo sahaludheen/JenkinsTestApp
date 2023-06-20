@@ -6,29 +6,29 @@ pipeline {
   stages {
     stage('Build') {
       steps {
+        //SCM Skip Plugin for skipping stage if commit msg mathes reg expression
         scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
+        
+        //docker build image
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
        }
     }
     stage('Update k8s manifest file') {
       steps {
+        //SCM Skip Plugin for skipping stage if commit msg mathes reg expression
         scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
-        //checkout git directory where k8s manifest file is located
-        git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
-
+       
         //script to update image tag
         script {
           def yamlFile = './app.yaml'
           def newImageName = "https-server:${env.BUILD_NUMBER}"         
           sh "sed -i 's|image:.*|image: ${newImageName}|' ${yamlFile}"
         }
-        sh "cat app.yaml"
-        // Add the modified file to the Git index
+        
+        //push app.yaml to git
+        git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
         sh 'git add ./app.yaml'
-
-        // Commit the changes
         sh 'git commit -m "[Jenkins]Modified YAML file [ci skip]"'
-
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
           sh "git push -u origin main"
         }
