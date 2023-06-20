@@ -54,7 +54,7 @@ pipeline {
         sh 'git add ./app.yaml'
           
         // Commit the changes
-        sh 'git commit -m "[Jenkins]Modified YAML file"'
+        sh 'git commit -m "[Jenkins]Modified YAML file [ci skip]"'
         
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
           sh "git push -u origin main"
