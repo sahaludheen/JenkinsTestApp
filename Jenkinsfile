@@ -16,12 +16,9 @@ pipeline {
           echo "Last Commit Message: ${commitMessage}"
           //def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
           env.isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
-          echo "is cript commit: ${env.isScriptCommit}"
-          //if(isScriptCommit){
-          //  env.isScriptCommit = true
-          //}
+          echo "is script commit: ${env.isScriptCommit}"
 
-          if (env.isScriptCommit) {
+          if ({env.isScriptCommit}) {
             echo 'Commit was made by the script, skipping pipeline execution.'
             //return // Exit the pipeline early
           }
