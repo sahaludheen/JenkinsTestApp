@@ -1,7 +1,10 @@
 pipeline {
   agent any
+  environment {
+    isScriptCommit = "false"
+  }
   stages {
-    def isScriptCommit = false
+    //def isScriptCommit = false
     stage('Check Commit Message') {
       steps {
         script{
@@ -15,9 +18,9 @@ pipeline {
           echo "Last Commit Author: ${commitAuthor}"
 
           echo "Last Commit Message: ${commitMessage}"
-          isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
+          env.isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
 
-          if (isScriptCommit) {
+          if (${env.isScriptCommit}=='true') {
             echo 'Commit was made by the script, skipping pipeline execution.'
             return // Exit the pipeline early
           }
@@ -26,10 +29,10 @@ pipeline {
     }
     stage('Build') {
       steps {
-        if (!isScriptCommit) {
+        //if (!isScriptCommit) {
           sh "ls -a"
           sh "docker build -t https-server:${env.BUILD_NUMBER} ."
-        }
+        //}
       }
     }
     stage('Update k8s manifest file') {
