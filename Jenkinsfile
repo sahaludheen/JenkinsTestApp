@@ -1,26 +1,14 @@
 pipeline {
   agent any
-  environment {
-    isScriptCommit = false
-  }
+  //environment {
+  //  isScriptCommit = false
+  //}
   stages {
-      stage('Check for Skip') {
+    stage('Check for Skip') {
       steps {
-        script {
-          def skipPattern = '.*\\[ci skip\\].*'
-          if (env.CHANGE_TITLE =~ skipPattern || env.CHANGE_MESSAGE =~ skipPattern) {
-            echo 'Commit message matched skip pattern. Skipping pipeline execution.'
-            currentBuild.result = 'ABORTED' // Abort the build
-            return // Exit the pipeline early
-          }
-        }
+        scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
       }
     }
-    //stage('Check for Skip') {
-    //  steps {
-    //    scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
-    //  }
-    //}
     //stage('Check Commit Message') {
     //  steps {
     //    script{
