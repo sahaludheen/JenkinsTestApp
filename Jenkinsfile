@@ -58,7 +58,6 @@ pipeline {
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
           sh "git push -u origin main"
         }
-        //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
       }
     }
     //stage('Deploy') {
@@ -68,10 +67,4 @@ pipeline {
     //  }
     //}
   }
-  //post {
-  //  always {
-  //    // Set environment variable to indicate changes made by the pipeline script
-  //   env.CHANGES_MADE_BY_PIPELINE = 'true'
-  //  }
-  //}
 }
