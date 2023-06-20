@@ -1,27 +1,27 @@
 pipeline {
   agent any
   stages {
+    script{
+      //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
+      // Check if commit was made by script
+      def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+      // Get the last commit author
+      def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
+          
+     // Print the commit author
+     echo "Last Commit Author: ${commitAuthor}"
+          
+     echo "Last Commit Message: ${commitMessage}"
+     def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
+
+     if (isScriptCommit) {
+       echo 'Commit was made by the script, skipping pipeline execution.'
+       return // Exit the pipeline early
+     }
+    }
     stage('Check Commit Message') {
       steps {
-        script{
-          //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
-          // Check if commit was made by script
-          def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-          //def commitMessage = git changelog: true, poll: false, quiet: true, branch: 'main', showEntireCommit: true
-          //commitMessage = commitMessage.split('\n')[1].trim() // Extract the commit message from the git changelog
-          // Get the last commit author
-          def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
-          
-          // Print the commit author
-          echo "Last Commit Author: ${commitAuthor}"
-          
-          echo "Last Commit Message: ${commitMessage}"
-          def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
 
-          if (isScriptCommit) {
-            echo 'Commit was made by the script, skipping pipeline execution.'
-            return // Exit the pipeline early
-          }
         }
       }
     }
