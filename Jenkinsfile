@@ -15,7 +15,7 @@ pipeline {
           echo "Last Commit Author: ${commitAuthor}"
 
           echo "Last Commit Message: ${commitMessage}"
-          def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
+          isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
 
           if (isScriptCommit) {
             echo 'Commit was made by the script, skipping pipeline execution.'
