@@ -1,7 +1,6 @@
 pipeline {
   agent any
-  stages {
-    script{
+      script{
       //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
       // Check if commit was made by script
       def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
@@ -19,6 +18,7 @@ pipeline {
         return // Exit the pipeline early
       }
     }
+  stages {
     //stage('Check Commit Message') {
     //  steps {
     //  }
