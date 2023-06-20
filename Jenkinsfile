@@ -26,8 +26,8 @@ pipeline {
       }
     }
     stage('Build') {
-      sh "ls -a"
       steps {
+        sh "ls -a"
         if (env.isScriptCommit == false) {
           sh "ls -a"
           sh "docker build -t https-server:${env.BUILD_NUMBER} ."
