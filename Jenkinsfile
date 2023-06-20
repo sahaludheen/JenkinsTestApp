@@ -1,32 +1,34 @@
 pipeline {
   agent any
-      script{
-      //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
-      // Check if commit was made by script
-      def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-      // Get the last commit author
-      def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
-          
-      // Print the commit author
-      echo "Last Commit Author: ${commitAuthor}"
-          
-      echo "Last Commit Message: ${commitMessage}"
-      def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
+  stages {
+    stage('Check Commit Message') {
+      steps {
+        script{
+          //git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
+          // Check if commit was made by script
+          def commitMessage = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+          // Get the last commit author
+          def commitAuthor = sh(returnStdout: true, script: 'git log -1 --pretty=%an').trim()
 
-      if (isScriptCommit) {
-        echo 'Commit was made by the script, skipping pipeline execution.'
-        return // Exit the pipeline early
+          // Print the commit author
+          echo "Last Commit Author: ${commitAuthor}"
+
+          echo "Last Commit Message: ${commitMessage}"
+          def isScriptCommit = commitMessage.startsWith('[Jenkins]') // Adjust the criteria as per your commit message
+
+          if (isScriptCommit) {
+            echo 'Commit was made by the script, skipping pipeline execution.'
+            return // Exit the pipeline early
+          }
+        }
       }
     }
-  stages {
-    //stage('Check Commit Message') {
-    //  steps {
-    //  }
-    //}
     stage('Build') {
       steps {
-        sh "ls -a"
-        sh "docker build -t https-server:${env.BUILD_NUMBER} ."
+        if (!isScriptCommit) {
+          sh "ls -a"
+          sh "docker build -t https-server:${env.BUILD_NUMBER} ."
+        }
       }
     }
     stage('Update k8s manifest file') {
