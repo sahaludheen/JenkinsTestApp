@@ -18,6 +18,8 @@ pipeline {
         //SCM Skip Plugin for skipping stage if commit msg mathes reg expression
         scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
        
+        git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
+        
         //script to update image tag
         script {
           def yamlFile = './app.yaml'
@@ -26,7 +28,6 @@ pipeline {
         }
         
         //push app.yaml to git
-        git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
         sh 'git add ./app.yaml'
         sh 'git commit -m "[Jenkins]Modified YAML file [ci skip]"'
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
