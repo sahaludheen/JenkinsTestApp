@@ -27,7 +27,7 @@ pipeline {
           sh "sed -i 's|image:.*|image: ${newImageName}|' ${yamlFile}"
         }
         
-        //push app.yaml to git
+        //push app.yaml to github
         sh 'git add ./app.yaml'
         sh 'git commit -m "[ci skip] Modified YAML file"'
         withCredentials([gitUsernamePassword(credentialsId: 'sahaludheen-github-token', gitToolName: 'Default')]) {
