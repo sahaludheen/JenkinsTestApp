@@ -7,7 +7,7 @@ pipeline {
     stage('Build') {
       steps {
         //SCM Skip Plugin for skipping stage if commit msg mathes reg expression
-        scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
+        scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
         
         //docker build image
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
@@ -16,7 +16,7 @@ pipeline {
     stage('Update k8s manifest file') {
       steps {
         //SCM Skip Plugin for skipping stage if commit msg mathes reg expression
-        scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
+        //scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
        
         git branch: 'main', url: 'https://github.com/sahaludheen/JenkinsTestApp.git'
         
