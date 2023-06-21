@@ -7,7 +7,7 @@ pipeline {
     stage('Build') {
       steps {
         //SCM Skip Plugin for skipping stage if commit msg mathes reg expression 
-        scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
+        scmSkip(deleteBuild: false, skipPattern:'.*\\[ci skip\\].*')
         
         //docker build image
         sh "docker build -t https-server:${env.BUILD_NUMBER} ."
